@@ -7,7 +7,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import "./App.css";
 import ProfilePic from "./ProfilePic";
-import hoof from "./resources/noun_hoof_3071279.png"
+import hoof from "./resources/noun_hoof_3071279.png";
 
 class Post extends React.Component {
   clickHandler(id) {
@@ -36,34 +36,30 @@ class Post extends React.Component {
         <Card.Body>
           <Container>
             <Row>
-              <Col md={3}>
+              <Col md={3} xs={5}>
                 <ProfilePic userId={this.props.currentPost.id} />
               </Col>
-              <Col md={9}>
+              <Col md={9} xs={7}>
                 <p> {this.noText(this.props.currentPost.text)} </p>
               </Col>
             </Row>
             <Row>
-              <Col md={3}>
+              <Col lg={3} md={4} xs={7}>
                 <h3>
                   {" "}
                   {this.unknownUsername(this.props.currentPost.username)}{" "}
                 </h3>
               </Col>
-              <Col md={2}>
-                {/* <Button
+              <Col lg={3} md={3} xs={5}>
+                <Button
                   className="like"
+                  variant="warning"
                   id={this.props.currentPost.id}
                   onClick={(event) => this.clickHandler(event.currentTarget.id)}
                 >
-                  Thumb
-                </Button> */}
-                <Button className="like" variant="warning"
-                  id={this.props.currentPost.id}
-                  onClick={(event) => this.clickHandler(event.currentTarget.id)}><img className="like-hoof" src={hoof} alt="Hoofs Up!" /></Button>
-              </Col>
-              <Col md={2}>
-                <p>Likes: {this.props.currentPost.likes} </p>
+                  <img className="like-hoof" src={hoof} alt="Hoofs Up!" />{" "}
+                  {this.props.currentPost.likes}{" "}
+                </Button>
               </Col>
             </Row>
           </Container>
