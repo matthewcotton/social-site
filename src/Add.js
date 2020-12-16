@@ -1,19 +1,26 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-//import toastr from 'toastr';
-//import 'toastr/build/toastr.min.css';
+import toastr from 'toastr';
+import 'toastr/build/toastr.min.css';
 
 class Add extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       id: 0,
-      ref: React.createRef(),
+      ref: "",
       username: "",
       text: "",
       likes: 0,
     };
+    toastr.options = {
+      "closeButton": "true",
+      "positionClass": "toast-top-center",
+      "newestOnTop": "true",
+      "timeOut": "3000",
+    };
+    toastr.clear();
   }
 
   handleChange(event) {
@@ -24,17 +31,19 @@ class Add extends React.Component {
 
   submitHandler(event) {
     event.preventDefault();
+    const newID = this.props.postListLength + 1;
+    const newRef = React.createRef();
     this.props.onsubmit(
-      this.state.id,
-      this.state.ref,
+      newID,
+      newRef,
       this.state.username,
       this.state.text,
-      this.state.likes
+      0
     );
-    //toastr.success("Posted");
+    toastr.success("Buck up! Your post was successfully published.", "Published posted");
     this.setState((state) => ({
-      id: state.id + 1,
-      ref: state.ref + 1,
+      id: newID,
+      ref: "",
       username: "",
       text: "",
       likes: 0,
@@ -44,7 +53,6 @@ class Add extends React.Component {
   render() {
     return (
       <Form
-        onChange={(e) => this.handleChange(e)}
         onSubmit={(e) => this.submitHandler(e)}
       >
         <Form.Group controlId="postUsername">
@@ -53,6 +61,8 @@ class Add extends React.Component {
             name="username"
             type="text"
             value={this.state.username}
+            placeholder="enter username"
+            onChange={(e) => this.handleChange(e)}
           />
         </Form.Group>
 
@@ -62,6 +72,8 @@ class Add extends React.Component {
             name="text"
             type="text"
             value={this.state.text}
+            placeholder="add text"
+            onChange={(e) => this.handleChange(e)}
           />
         </Form.Group>
 
