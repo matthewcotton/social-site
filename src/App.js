@@ -5,7 +5,7 @@ import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import ViewPosts from "./ViewPosts";
 import Add from "./Add";
 import MyNav from "./MyNav";
-import MyFooter from './MyFooter';
+import MyFooter from "./MyFooter";
 import "./App.css";
 
 class App extends React.Component {
@@ -14,7 +14,11 @@ class App extends React.Component {
     this.state = {
       posts: [],
     };
-    
+  }
+
+  componentDidMount() {
+    const listContents = localStorage.getItem("posts");
+    this.setState({ listItems: JSON.parse(listContents) || [] });
   }
 
   updatePosts(id, ref, username, text, likes) {
@@ -22,17 +26,17 @@ class App extends React.Component {
     this.setState(
       (state) => ({
         posts: state.posts.concat(newPost),
-      })
-      //() => localStorage.setItem("list", JSON.stringify(this.state.postItems))
+      }),
+      () => localStorage.setItem("posts", JSON.stringify(this.state.posts))
     );
   }
 
   increaseLikeCount(id) {
-    let currentPosts = this.state.posts
+    let currentPosts = this.state.posts;
     currentPosts[id - 1].likes++;
     this.setState({
-      posts: Object.assign(currentPosts, this.state.posts)
-    })
+      posts: Object.assign(currentPosts, this.state.posts),
+    });
   }
 
   render() {
