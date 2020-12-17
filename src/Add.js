@@ -29,22 +29,43 @@ class Add extends React.Component {
     this.setState(newState);
   }
 
+  checkUsernameLength(username) {
+    if (username.length > 20) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   submitHandler(event) {
     event.preventDefault();
-    const newID = this.props.postListLength + 1;
-    const newRef = React.createRef();
-    this.props.onsubmit(newID, newRef, this.state.username, this.state.text, 0);
-    toastr.success(
-      "Buck up! Your post was successfully published.",
-      "Published posted"
-    );
-    this.setState((state) => ({
-      id: newID,
-      ref: "",
-      username: "",
-      text: "",
-      likes: 0,
-    }));
+    if (!this.checkUsernameLength(this.state.username)) {
+      toastr.error(
+        "Username is too long. It must be 20 characters or less.",
+        "Username Error"
+      );
+    } else {
+      const newID = this.props.postListLength + 1;
+      const newRef = React.createRef();
+      this.props.onsubmit(
+        newID,
+        newRef,
+        this.state.username,
+        this.state.text,
+        0
+      );
+      toastr.success(
+        "Buck up! Your post was successfully published.",
+        "Published posted"
+      );
+      this.setState((state) => ({
+        id: newID,
+        ref: "",
+        username: "",
+        text: "",
+        likes: 0,
+      }));
+    }
   }
 
   render() {
@@ -58,7 +79,7 @@ class Add extends React.Component {
               name="username"
               type="text"
               value={this.state.username}
-              placeholder="enter username"
+              placeholder="enter username (max 20 characters)"
               onChange={(e) => this.handleChange(e)}
             />
           </Form.Group>
