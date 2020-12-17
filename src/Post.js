@@ -36,10 +36,10 @@ class Post extends React.Component {
         <Card.Body>
           <Container>
             <Row>
-              <Col md={3} xs={5}>
+              <Col md={3} xs={6}>
                 <ProfilePic userId={this.props.currentPost.id} />
               </Col>
-              <Col md={9} xs={7}>
+              <Col md={9}>
                 <p> {this.noText(this.props.currentPost.text)} </p>
               </Col>
             </Row>
