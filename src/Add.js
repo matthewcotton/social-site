@@ -30,7 +30,7 @@ class Add extends React.Component {
   }
 
   checkUsernameLength(username) {
-    if (username.length > 20) {
+    if (username.length > 15) {
       return false;
     } else {
       return true;
@@ -41,7 +41,7 @@ class Add extends React.Component {
     event.preventDefault();
     if (!this.checkUsernameLength(this.state.username)) {
       toastr.error(
-        "Username is too long. It must be 20 characters or less.",
+        "Username is too long. It must be 15 characters or less.",
         "Username Error"
       );
     } else {
