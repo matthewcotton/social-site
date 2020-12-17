@@ -8,9 +8,7 @@ import NoPosts from "./NoPosts";
 class ViewPosts extends React.Component {
   buildPostCards() {
     if (this.props.postList.length === 0) {
-      return (
-        <NoPosts />
-      );
+      return <NoPosts />;
     } else {
       return this.props.postList.map((currentPost) => (
         <Post currentPost={currentPost} addLike={this.props.addLike} />
@@ -19,7 +17,12 @@ class ViewPosts extends React.Component {
   }
 
   render() {
-    return <Row className="postList">{this.buildPostCards()}</Row>;
+    return (
+      <div>
+        <br />
+        <Row className="postList">{this.buildPostCards()}</Row>
+      </div>
+    );
   }
 }
 
