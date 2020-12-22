@@ -21,6 +21,11 @@ class MyNav extends React.Component {
                 <Link to="/add">Add Posts</Link>
               </Navbar.Text>
             </Nav>
+            <Nav>
+            <Navbar.Text className="nav-link">
+                <a href='https://www.matthewcotton.dev/#/projects'>Back to Portfolio</a>
+              </Navbar.Text>
+            </Nav>
           </Navbar.Collapse>
         </Navbar>
     );
