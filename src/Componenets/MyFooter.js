@@ -1,7 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ModalFooter from "react-bootstrap/ModalFooter";
-import "./App.css";
+import "../Styles/App.css";
 
 class MyFooter extends React.Component {
   render() {

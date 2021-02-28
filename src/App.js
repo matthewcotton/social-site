@@ -2,17 +2,18 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
-import ViewPosts from "./ViewPosts";
-import Add from "./Add";
-import MyNav from "./MyNav";
-import MyFooter from "./MyFooter";
-import "./App.css";
+import ViewPosts from "./Pages/ViewPosts";
+import Add from "./Pages/Add";
+import MyNav from "./Componenets/MyNav";
+import MyFooter from "./Componenets/MyFooter";
+import "./Styles/App.css";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       posts: [],
+      logInOutText: "Login",
     };
   }
 
@@ -42,9 +43,12 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <MyNav />
+        <MyNav logInOutText={this.state.logInOutText} />
         <Container>
           <Switch>
+            <Route path="/login">
+              <p>Login Page</p>
+            </Route>
             <Route path="/add">
               <Add
                 onsubmit={(id, ref, username, text, likes) =>

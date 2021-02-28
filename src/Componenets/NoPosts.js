@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Link from "react-router-dom/Link";
-import "./App.css";
+import "../Styles/App.css";
 
 class NoPosts extends React.Component {
   render() {

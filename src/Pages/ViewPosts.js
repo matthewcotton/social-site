@@ -1,9 +1,9 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Row from "react-bootstrap/Row";
-import "./App.css";
-import Post from "./Post";
-import NoPosts from "./NoPosts";
+import "../Styles/App.css";
+import Post from "../Componenets/Post";
+import NoPosts from "../Componenets/NoPosts";
 
 class ViewPosts extends React.Component {
   buildPostCards() {

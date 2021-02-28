@@ -5,9 +5,9 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import "./App.css";
+import "../Styles/App.css";
 import ProfilePic from "./ProfilePic";
-import hoof from "./resources/noun_hoof_3071279.png";
+import hoof from "../resources/noun_hoof_3071279.png";
 
 class Post extends React.Component {
   clickHandler(id) {
