@@ -1,20 +1,17 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Container from "react-bootstrap/Container";
-import Card from "react-bootstrap/Card";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-import "../Styles/App.css";
+import { Card, Row, Col, Button } from "react-bootstrap";
 import ProfilePic from "./ProfilePic";
 import hoof from "../resources/noun_hoof_3071279.png";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../Styles/App.css";
 
 class Post extends React.Component {
+  // UPDATE LIKE HANDLER
   clickHandler(id) {
     this.props.addLike(id);
   }
 
-  unknownUsername(username) {
+  usernameCheck(username) {
     if (username === "") {
       return "Anonymous";
     } else {
@@ -22,7 +19,7 @@ class Post extends React.Component {
     }
   }
 
-  noText(text) {
+  textCheck(text) {
     if (text === "") {
       return "Hey, you didn't eneter any text in this post but I decided to post it anyway.";
     } else {
@@ -34,35 +31,34 @@ class Post extends React.Component {
     return (
       <Card className="post">
         <Card.Body>
-          <Container>
-            <Row>
-              <Col md={3} xs={6}>
-                <ProfilePic userId={this.props.currentPost.id} />
-              </Col>
-              <Col md={9}>
-                <p> {this.noText(this.props.currentPost.text)} </p>
-              </Col>
-            </Row>
-            <Row>
-              <Col lg={3} md={4} xs={7}>
-                <h3>
-                  {" "}
-                  {this.unknownUsername(this.props.currentPost.username)}{" "}
-                </h3>
-              </Col>
-              <Col lg={3} md={3} xs={5}>
-                <Button
-                  className="like"
-                  variant="warning"
-                  id={this.props.currentPost.id}
-                  onClick={(event) => this.clickHandler(event.currentTarget.id)}
-                >
-                  <img className="like-hoof" src={hoof} alt="Hoofs Up!" />{" "}
-                  {this.props.currentPost.likes}{" "}
-                </Button>
-              </Col>
-            </Row>
-          </Container>
+          <Row>
+            <Col md={3} xs={6}>
+              <ProfilePic userId={this.props.currentPost.id} />
+            </Col>
+            <Col md={9}>
+              <h4>{this.props.currentPost.postTitle}</h4>
+              <p>{this.textCheck(this.props.currentPost.postText)}</p>
+            </Col>
+          </Row>
+          <Row>
+            <Col lg={3} md={4} xs={12}>
+              <h4>{this.usernameCheck(this.props.currentPost.username)}</h4>
+            </Col>
+            <Col lg={3} xs={12}>
+              <Button
+                className="like"
+                variant="warning"
+                id={this.props.currentPost.id}
+                onClick={(event) => this.clickHandler(event.currentTarget.id)}
+              >
+                <img className="like-hoof" src={hoof} alt="Hoofs Up!" />{" "}
+                {this.props.currentPost.likes}{" "}
+              </Button>
+            </Col>
+            <Col lg={3} xs={12}>
+              <p>{this.props.currentPost.timestamp}</p>
+            </Col>
+          </Row>
         </Card.Body>
       </Card>
     );

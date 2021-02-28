@@ -1,4 +1,4 @@
-import axios from "axois";
+import axios from "axios";
 const url = "https://lit-harbor-58321.herokuapp.com/";
 
 export class ApiClient {
@@ -87,7 +87,6 @@ export class ApiClient {
       imageUrl,
       tags,
       likes,
-      timestamp,
     });
   }
 
