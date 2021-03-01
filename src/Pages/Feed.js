@@ -1,8 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
-import { Post, NoPosts } from "../Componenets";
+import { BuildPostCards, ToTopButton, RefreshButton } from "../Componenets";
 import { Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../Styles/App.css";
 
 export const Feed = ({ client }) => {
   const [posts, setPosts] = useState([]);
@@ -16,34 +15,25 @@ export const Feed = ({ client }) => {
     refreshPosts();
   }, [refreshPosts]);
 
-  const buildPostCards = () => {
-    if (posts.length === 0) {
-      return <NoPosts />;
-    } else {
-      return posts.map((currentPost) => (
-        <Row className="justify-content-md-center" key={currentPost._id}>
-          <Post
-            key={currentPost._id}
-            currentPost={currentPost}
-            client={client}
-            refreshPosts={refreshPosts}
-          />
-        </Row>
-      ));
-    }
-  };
-
   return (
     <div>
-      <Row className="justify-content-md-center">
+      <Row className="justify-content-center">
         <Col>
           <br />
           <h1 className="text-center">Deer Feed</h1>
-          {/* Add a refresh button */}
         </Col>
       </Row>
-      {buildPostCards()}
-      {/* Add a back to top button */}
+      <Row className="justify-content-center">
+        <Col className="text-center" xs={6} lg={3}>
+          <RefreshButton refreshPosts={refreshPosts} />
+        </Col>
+      </Row>
+      <BuildPostCards
+        client={client}
+        posts={posts}
+        refreshPosts={refreshPosts}
+      />
+      <ToTopButton />
     </div>
   );
 };

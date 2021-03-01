@@ -22,3 +22,10 @@
   margin-top: 1rem;
 }
 
+a {
+  color: #ffc107;
+}
+
+a:hover {
+  color: black;
+}
