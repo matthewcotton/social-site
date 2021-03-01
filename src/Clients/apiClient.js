@@ -52,14 +52,14 @@ export class ApiClient {
     return await axios({
       method: "patch",
       url: `${url}posts/like/${postId}`,
-    })
+    });
   }
 
   async removeLike(postId) {
     return await axios({
       method: "patch",
       url: `${url}posts/unlike/${postId}`,
-    })
+    });
   }
 
   authenticatedCall(method, url, data) {
