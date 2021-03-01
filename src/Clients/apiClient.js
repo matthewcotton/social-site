@@ -19,10 +19,11 @@ export class ApiClient {
   }
 
   async getAllPosts() {
-    return await axios({
+    const posts = await axios({
       method: "get",
       url: `${url}posts`,
     });
+    return posts.data;
   }
 
   async getOneUsersPosts(username) {
@@ -50,14 +51,14 @@ export class ApiClient {
   async addLike(postId) {
     return await axios({
       method: "patch",
-      url: `${url}/posts/like/${postId}`,
+      url: `${url}posts/like/${postId}`,
     })
   }
 
   async removeLike(postId) {
     return await axios({
       method: "patch",
-      url: `${url}/posts/unlike/${postId}`,
+      url: `${url}posts/unlike/${postId}`,
     })
   }
 

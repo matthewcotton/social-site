@@ -2,7 +2,7 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import { MyNav, MyFooter } from "./Componenets";
-import { ViewPosts, Add, Feed } from "./Pages";
+import { Add, Feed } from "./Pages";
 import { ApiClient } from "./Clients/apiClient";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Styles/App.css";
