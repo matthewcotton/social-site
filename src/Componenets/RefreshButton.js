@@ -13,7 +13,7 @@ const RefreshButton = ({ refreshPosts }) => {
     >
       <img className="refresh-hoof" src={hoof} alt="Fresh feed" />
       <img className="refresh-hoof" src={hoof} alt="Fresh feed" />
-      Fresh Feed
+      (re)Fresh Feed
       <img className="refresh-hoof" src={hoof} alt="Fresh feed" />
       <img className="refresh-hoof" src={hoof} alt="Fresh feed" />
     </Button>
