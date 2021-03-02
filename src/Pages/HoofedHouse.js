@@ -8,7 +8,7 @@ export const HoofedHouse = ({ client }) => {
       <Row className="justify-content-center">
         <Col>
           <br />
-          <h1 className="text-center">Deer Feed</h1>
+          <h1 className="text-center">Hoofed House</h1>
           <br />
         </Col>
       </Row>

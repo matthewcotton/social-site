@@ -22,5 +22,3 @@ export const ToTopButton = ({ currentPage }) => {
     </Row>
   );
 };
-
-// export default ToTopButton;
