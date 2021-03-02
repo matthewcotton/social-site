@@ -5,11 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowAltCircleUp } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/ToTopButton.css";
 
-const ToTopButton = () => {
+export const ToTopButton = ({ currentPage }) => {
+  const link = `${currentPage}/#top`;
+
   return (
     <Row className="justify-content-end">
       <Col className="top-btn-col text-right" xs={3} lg={1}>
-        <HashLink smooth to="/#top">
+        <HashLink smooth to={link}>
           <FontAwesomeIcon
             className="arrow-up"
             icon={faArrowAltCircleUp}
@@ -21,4 +23,4 @@ const ToTopButton = () => {
   );
 };
 
-export default ToTopButton;
+// export default ToTopButton;

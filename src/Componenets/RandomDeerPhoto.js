@@ -50,7 +50,7 @@ const RandomDeerPhoto = ({ client }) => {
         onClick={(e) => randomButtonHandler(e)}
         variant="warning"
       >
-        Random Deer Photo
+        Who's in the House
       </Button>
     </div>
   );
