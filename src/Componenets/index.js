@@ -6,3 +6,4 @@ export { default as ProfilePic } from "./ProfilePic";
 export { default as ToTopButton } from "./ToTopButton";
 export { default as BuildPostCards } from "./BuildPostCards";
 export { default as RefreshButton } from "./RefreshButton";
+export { default as RandomDeerPhoto } from "./RandomDeerPhoto";

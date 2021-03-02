@@ -1,5 +1,11 @@
 import axios from "axios";
-const url = "https://lit-harbor-58321.herokuapp.com/";
+import { createApi } from "unsplash-js";
+import env from "react-dotenv";
+
+const url = "https://lit-harbor-58321.herokuapp.com/"; // Make env variable
+const unsplashApi = createApi({
+  accessKey: env.UNSPLASHACCESSKEY,
+});
 
 export class ApiClient {
   constructor(tokenProvider, logoutHandler) {
@@ -7,6 +13,7 @@ export class ApiClient {
     this.logoutHandler = logoutHandler;
   }
 
+  /* Login API Call */
   async login(username, password) {
     return await axios({
       method: "post",
@@ -17,6 +24,8 @@ export class ApiClient {
       },
     });
   }
+
+  /* Unsecure API Calls to social site backend */
 
   async getAllPosts() {
     const posts = await axios({
@@ -62,6 +71,7 @@ export class ApiClient {
     });
   }
 
+  /* Autheticated Call Definition */
   authenticatedCall(method, url, data) {
     return axios({
       method,
@@ -79,6 +89,8 @@ export class ApiClient {
       }
     });
   }
+
+  /* Secure API Calls to social site backend */
 
   addPost(username, postTitle, postText, imageUrl, tags) {
     const likes = 0;
@@ -121,5 +133,30 @@ export class ApiClient {
 
   deleteUser(username) {
     return this.authenticatedCall("delete", `${url}user/${username}`);
+  }
+
+  /* Unsplash API Calls */
+
+  unsplashPhotoSearch(query, count, orientation) {
+    const res = unsplashApi.search
+      .getPhotos({ query, count, orientation })
+      .catch((error) => {
+        throw error;
+      });
+    return res;
+  }
+
+  unsplashRandomPhoto(query, count) {
+    const res = unsplashApi.photos
+      .getRandom({ query, count })
+      // .then((result) => {
+      //   if (result.type === "success") {
+      //     photos = result;
+      //   }
+      // })
+      .catch((error) => {
+        throw error;
+      });
+    return res;
   }
 }

@@ -1,5 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
-import { BuildPostCards, ToTopButton, RefreshButton } from "../Componenets";
+import {
+  BuildPostCards,
+  ToTopButton,
+  RefreshButton,
+  RandomDeerPhoto,
+} from "../Componenets";
 import { Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -24,7 +29,12 @@ export const Feed = ({ client }) => {
         </Col>
       </Row>
       <Row className="justify-content-center">
-        <Col className="text-center" xs={6} lg={3}>
+        <Col className="text-center">
+          <RandomDeerPhoto client={client} />
+        </Col>
+      </Row>
+      <Row className="justify-content-center">
+        <Col className="text-center" xs={8} lg={4}>
           <RefreshButton refreshPosts={refreshPosts} />
         </Col>
       </Row>
