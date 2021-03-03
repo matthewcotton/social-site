@@ -18,7 +18,7 @@ function MyNav(props) {
             <Link to="/">Deer Feed</Link>
           </Navbar.Text>
           <Navbar.Text className="nav-link">
-            <Link to="/add">Add Posts</Link>
+            <Link to="/add">Add Bark</Link>
           </Navbar.Text>
           <Navbar.Text className="nav-link">
             <Link to="/house">Hoofed House</Link>

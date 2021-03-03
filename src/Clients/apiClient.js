@@ -92,18 +92,12 @@ export class ApiClient {
 
   /* Secure API Calls to social site backend */
 
-  addPost(username, postTitle, postText, imageUrl, tags) {
-    const likes = 0;
-    const timestamp = Date.now();
-    return this.authenticatedCall("post", `${url}posts/add`, {
-      username,
-      postTitle,
-      postText,
-      imageUrl,
-      tags,
-      likes,
-      timestamp,
-    });
+  addPost(post) {
+    post = {...post, likes: 0, timestamp: Date.now}
+    // const likes = 0;
+    // const timestamp = Date.now();
+    console.log(post)
+    return this.authenticatedCall("post", `${url}posts/add`, post);
   }
 
   updatePost(postId, username, postTitle, postText, imageUrl, tags, likes) {
@@ -149,11 +143,6 @@ export class ApiClient {
   unsplashRandomPhoto(query, count) {
     const res = unsplashApi.photos
       .getRandom({ query, count })
-      // .then((result) => {
-      //   if (result.type === "success") {
-      //     photos = result;
-      //   }
-      // })
       .catch((error) => {
         throw error;
       });
