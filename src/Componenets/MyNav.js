@@ -27,7 +27,7 @@ function MyNav({ loggedIn, logout }) {
         <Nav>
           <Navbar.Text className="nav-link">
             {loggedIn ? (
-              <Link to="" onClick={(e) => logout()} >Log Out</Link>
+              <button to="" onClick={(e) => logout()} >Log Out</button>
             ) : (
               <Link to="/login">Log In</Link>
             )}

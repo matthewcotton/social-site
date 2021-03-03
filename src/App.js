@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Container } from "react-bootstrap";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import { MyNav, MyFooter } from "./Componenets";
@@ -25,7 +25,7 @@ const App = () => {
     closeButton: "true",
     positionClass: "toast-top-center",
     newestOnTop: "true",
-    timeOut: "3000",
+    timeOut: "5000",
   };
   toastr.clear();
 
@@ -36,7 +36,7 @@ const App = () => {
 
   const deleteUserToken = () => {
     window.localStorage.removeItem("facebuck-token");
-    setToken({ token: undefined });
+    setToken(undefined);
     toastr.info("You have been logged out.");
   };
 
@@ -60,7 +60,7 @@ const App = () => {
             )}
           />
 
-          <PrivateRoute>
+          <PrivateRoute loggedIn={loggedIn} >
             <Route path="/add" render={() => <AddBark client={client} />} />
           </PrivateRoute>
 
