@@ -5,7 +5,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import "../Styles/App.css";
 
-function MyNav(props) {
+function MyNav({ logInOutText }) {
   return (
     <Navbar bg="dark" variant="dark" expand="md">
       <Link to="/">
@@ -26,7 +26,7 @@ function MyNav(props) {
         </Nav>
         <Nav>
           <Navbar.Text className="nav-link">
-            <Link to="/login">{props.logInOutText}</Link>
+            <Link to="/login">{logInOutText}</Link>
           </Navbar.Text>
           <Navbar.Text className="nav-link">
             <a href="https://www.matthewcotton.dev/#/projects">

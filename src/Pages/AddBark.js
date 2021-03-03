@@ -4,11 +4,13 @@ import { Form, Button } from "react-bootstrap";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 
+/* Look at splitting this out into a page and a form componenet */
+
 export const AddBark = ({ client }) => {
   const [bark, setBark] = useState({
     username: "",
-    title: "",
-    text: "",
+    postTitle: "",
+    postText: "",
     imageUrl: "",
     tags: "",
   });
@@ -25,39 +27,34 @@ export const AddBark = ({ client }) => {
     return username.length > 15 ? false : true;
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     if (!checkUsername(bark.username)) {
+      /* ADD BETTER ERROR MESSAGES */
       toastr.error(
         "Username is too long. It must be 15 characters or less.",
         "Username Error"
       );
-    } else {
-      // Check if this actually needs to be an async function
-      const addBark = async () => {
-        return await client.addPost(bark);
-      };
-      const res = addBark();
-      console.log(res);
-      if (res.status === 200) {
+      return;
+    }
+    const res = await client.addPost(bark).catch((error) => {
+      if (!error) {
+        setBark({
+          username: "",
+          postTitle: "",
+          postText: "",
+          imageUrl: "",
+          tags: "",
+        });
         toastr.success(
           "Buck up! Your post was successfully published.",
           "Published posted"
         );
-        setBark({
-          username: "",
-          title: "",
-          text: "",
-          imageUrl: "",
-          tags: "",
-        });
+        return;
       } else {
-        toastr.error(
-          "An error occured when submitting your bark. Please try again.",
-          "Submission Error"
-        );
+        toastr.error(error, "Error");
       }
-    }
+    });
   };
 
   return (
@@ -79,24 +76,24 @@ export const AddBark = ({ client }) => {
         <Form.Group controlId="postTitle">
           <Form.Label>Post Title</Form.Label>
           <Form.Control
-            name="title"
+            name="postTitle"
             type="text"
-            value={bark.title}
+            value={bark.postTitle}
             placeholder="add post title"
-            onChange={(e) => setBark({ ...bark, title: e.target.value })}
+            onChange={(e) => setBark({ ...bark, postTitle: e.target.value })}
           />
         </Form.Group>
 
         <Form.Group controlId="postText">
           <Form.Label>Post Text</Form.Label>
           <Form.Control
-            name="text"
+            name="postText"
             type="text"
             as="textarea"
             rows={3}
-            value={bark.text}
+            value={bark.postText}
             placeholder="add post text"
-            onChange={(e) => setBark({ ...bark, text: e.target.value })}
+            onChange={(e) => setBark({ ...bark, postText: e.target.value })}
           />
         </Form.Group>
 

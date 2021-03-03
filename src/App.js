@@ -2,7 +2,7 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import { MyNav, MyFooter } from "./Componenets";
-import { AddBark, Feed, HoofedHouse } from "./Pages";
+import { AddBark, Feed, HoofedHouse, Login } from "./Pages";
 import { ApiClient } from "./Clients/apiClient";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Styles/App.css";
@@ -11,53 +11,29 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: [],
       token: window.localStorage.getItem("facebuck-token"),
       logInOutText: "Login",
     };
     this.client = new ApiClient(
       () => this.state.token,
-      () => this.logout()
+      () => this.deleteUserToken()
     );
   }
 
-  login(token) {
+  storeUserToken(token) {
     window.localStorage.setItem("facebuck-token", token);
     this.setState({ token });
   }
 
-  logout() {
+  deleteUserToken() {
     window.localStorage.removeItem("facebuck-token");
     this.setState({ token: undefined });
   }
 
-  // componentDidMount() {
-  //   const listContents = localStorage.getItem("posts");
-  //   this.setState({ listItems: JSON.parse(listContents) || [] });
-  // }
-
-  // updatePosts(id, ref, username, text, likes) {
-  //   const newPost = { id, ref, username, text, likes };
-  //   this.setState(
-  //     (state) => ({
-  //       posts: state.posts.concat(newPost),
-  //     }),
-  //     () => localStorage.setItem("posts", JSON.stringify(this.state.posts))
-  //   );
-  // }
-
-  // increaseLikeCount(id) {
-  //   let currentPosts = this.state.posts;
-  //   currentPosts[id - 1].likes++;
-  //   this.setState({
-  //     posts: Object.assign(currentPosts, this.state.posts),
-  //   });
-  // }
-
   render() {
     return (
       <Router>
-        <MyNav logInOutText={this.state.logInOutText} />
+        <MyNav logInOutText={this.state.token ? "Log Out" : "Log In"} />
         <Container>
           <Switch>
             <Route
@@ -72,6 +48,16 @@ class App extends React.Component {
             <Route
               path="/house"
               render={() => <HoofedHouse client={this.client} />}
+            />
+            <Route
+              path="/login"
+              render={() => (
+                <Login
+                  client={this.client}
+                  storeUserToken={(token) => this.storeUserToken(token)}
+                  token={this.state.token}
+                />
+              )}
             />
             <Route path="/">Error: 404 not found</Route>
           </Switch>
