@@ -1,9 +1,9 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import { MyNav, MyFooter } from "./Componenets";
-import { AddBark, Feed, HoofedHouse, Login } from "./Pages";
+import { AddBark, Feed, HoofedHouse, Login, PrivateRoute } from "./Pages";
 import { ApiClient } from "./Clients/apiClient";
 
 import toastr from "toastr";
@@ -40,13 +40,14 @@ const App = () => {
     toastr.info("You have been logged out.");
   };
 
+  const loggedIn = () => (token ? true : false);
+
   return (
     <Router>
-      <MyNav loggedIn={token ? true : false} logout={() => deleteUserToken()} />
+      <MyNav loggedIn={loggedIn()} logout={() => deleteUserToken()} />
       <Container>
         <Switch>
           <Route path="/" exact render={() => <Feed client={client} />} />
-          <Route path="/add" render={() => <AddBark client={client} />} />
           <Route path="/house" render={() => <HoofedHouse client={client} />} />
           <Route
             path="/login"
@@ -54,11 +55,15 @@ const App = () => {
               <Login
                 client={client}
                 storeUserToken={(t) => storeUserToken(t)}
-                loggedIn={token ? true : false}
+                loggedIn={loggedIn()}
               />
             )}
           />
-          {}
+
+          <PrivateRoute>
+            <Route path="/add" render={() => <AddBark client={client} />} />
+          </PrivateRoute>
+
           <Route path="/">Error: 404 not found</Route>
         </Switch>
       </Container>

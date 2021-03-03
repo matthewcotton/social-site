@@ -15,7 +15,7 @@ export const Login = ({ client, storeUserToken, loggedIn }) => {
         </Col>
       </Row>
       <Row className="justify-content-center">
-        <Col xs={10} lg={4}>
+        <Col xs={10} md={6} lg={4}>
           <LoginForm client={client} storeUserToken={storeUserToken} />
         </Col>
       </Row>
