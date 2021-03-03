@@ -4,6 +4,8 @@ import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import { MyNav, MyFooter } from "./Componenets";
 import { AddBark, Feed, HoofedHouse, Login } from "./Pages";
 import { ApiClient } from "./Clients/apiClient";
+import toastr from "toastr";
+import "toastr/build/toastr.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Styles/App.css";
 
@@ -18,6 +20,14 @@ class App extends React.Component {
       () => this.state.token,
       () => this.deleteUserToken()
     );
+    /* Can these settings be centralised somewhere? */
+    toastr.options = {
+      closeButton: "true",
+      positionClass: "toast-top-center",
+      newestOnTop: "true",
+      timeOut: "3000",
+    };
+    toastr.clear();
   }
 
   storeUserToken(token) {
@@ -28,12 +38,18 @@ class App extends React.Component {
   deleteUserToken() {
     window.localStorage.removeItem("facebuck-token");
     this.setState({ token: undefined });
+    toastr.info(
+      "You have been logged out."
+    )
   }
 
   render() {
     return (
       <Router>
-        <MyNav logInOutText={this.state.token ? "Log Out" : "Log In"} />
+        <MyNav
+          loggedIn={this.state.token ? true : false}
+          logout={() => this.deleteUserToken()}
+        />
         <Container>
           <Switch>
             <Route
@@ -55,7 +71,7 @@ class App extends React.Component {
                 <Login
                   client={this.client}
                   storeUserToken={(token) => this.storeUserToken(token)}
-                  token={this.state.token}
+                  loggedIn={this.state.token ? true : false}
                 />
               )}
             />

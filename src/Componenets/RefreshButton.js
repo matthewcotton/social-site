@@ -12,9 +12,7 @@ const RefreshButton = ({ refreshPosts }) => {
       variant="warning"
     >
       <img className="refresh-hoof" src={hoof} alt="Fresh feed" />
-      <img className="refresh-hoof" src={hoof} alt="Fresh feed" />
       (re)Fresh Feed
-      <img className="refresh-hoof" src={hoof} alt="Fresh feed" />
       <img className="refresh-hoof" src={hoof} alt="Fresh feed" />
     </Button>
   );

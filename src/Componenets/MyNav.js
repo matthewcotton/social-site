@@ -5,7 +5,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import "../Styles/App.css";
 
-function MyNav({ logInOutText }) {
+function MyNav({ loggedIn, logout }) {
   return (
     <Navbar bg="dark" variant="dark" expand="md">
       <Link to="/">
@@ -26,7 +26,12 @@ function MyNav({ logInOutText }) {
         </Nav>
         <Nav>
           <Navbar.Text className="nav-link">
-            <Link to="/login">{logInOutText}</Link>
+            {loggedIn ? (
+              <Link to="" onClick={(e) => logout()} >Log Out</Link>
+            ) : (
+              <Link to="/login">Log In</Link>
+            )}
+            {/* <Link to="/login">{loggedIn ? "Log Out" : "Log In"}</Link> */}
           </Navbar.Text>
           <Navbar.Text className="nav-link">
             <a href="https://www.matthewcotton.dev/#/projects">

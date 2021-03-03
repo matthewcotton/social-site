@@ -37,7 +37,7 @@ export const AddBark = ({ client }) => {
       );
       return;
     }
-    const res = await client.addPost(bark).catch((error) => {
+    await client.addPost(bark).catch((error) => {
       if (!error) {
         setBark({
           username: "",

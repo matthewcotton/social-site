@@ -3,8 +3,8 @@ import { Row, Col } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import { LoginForm } from "../Componenets";
 
-export const Login = ({ client, storeUserToken, token }) => {
-  return token ? (
+export const Login = ({ client, storeUserToken, loggedIn }) => {
+  return loggedIn ? (
     <Redirect to="/" />
   ) : (
     <div>
@@ -14,8 +14,8 @@ export const Login = ({ client, storeUserToken, token }) => {
           <h1 className="text-center">Login</h1>
         </Col>
       </Row>
-      <Row>
-        <Col>
+      <Row className="justify-content-center">
+        <Col xs={10} lg={4}>
           <LoginForm client={client} storeUserToken={storeUserToken} />
         </Col>
       </Row>
