@@ -3,18 +3,26 @@ import { useState } from "react";
 import { Row, Col, Button, Image } from "react-bootstrap";
 import "../Styles/RandomDeerPhoto.css";
 
-const RandomDeerPhoto = ({ client }) => {
+const RandomDeerPhoto = ({
+  client,
+  buttonText,
+  preLoadText,
+  returnPhotoData,
+}) => {
   const [randomPhoto, setRandomPhoto] = useState(null);
 
   const randomButtonHandler = async () => {
     const photoFromUnsplash = await client.unsplashRandomPhoto("deer", 1);
     console.log(photoFromUnsplash);
     setRandomPhoto(photoFromUnsplash.response);
+    if (returnPhotoData) {
+      returnPhotoData(photoFromUnsplash.response[0]);
+    }
   };
 
   const imageCheck = () => {
     if (randomPhoto === null) {
-      return <p>Do you want to see a hoofed ruminant mammal?</p>;
+      return <p>{preLoadText}</p>;
     } else {
       return (
         <div>
@@ -27,7 +35,7 @@ const RandomDeerPhoto = ({ client }) => {
             </Col>
           </Row>
           <Row>
-            <Col>
+            <Col className="text-center">
               <a
                 target="_blank"
                 rel="noreferrer"
@@ -45,13 +53,17 @@ const RandomDeerPhoto = ({ client }) => {
   return (
     <div>
       {imageCheck()}
-      <Button
-        className="random-btn"
-        onClick={(e) => randomButtonHandler(e)}
-        variant="warning"
-      >
-        Who's in the House
-      </Button>
+      <Row>
+        <Col className="text-center">
+          <Button
+            className="random-btn"
+            onClick={(e) => randomButtonHandler(e)}
+            variant="warning"
+          >
+            {buttonText}
+          </Button>
+        </Col>
+      </Row>
     </div>
   );
 };

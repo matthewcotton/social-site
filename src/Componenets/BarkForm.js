@@ -46,8 +46,6 @@ export const BarkForm = ({ submitHandler, bark, setBark }) => {
             />
           </Form.Group>
 
-          {/* Add random photo generator for imageUrl */}
-
           <Form.Group controlId="postTags">
             <Form.Label>Tags</Form.Label>
             <Form.Control
@@ -58,10 +56,13 @@ export const BarkForm = ({ submitHandler, bark, setBark }) => {
               onChange={(e) => setBark({ ...bark, tags: e.target.value })}
             />
           </Form.Group>
-
-          <Button variant="warning" type="submit">
-            Submit
-          </Button>
+          <Row>
+            <Col className="text-center">
+              <Button variant="warning" type="submit">
+                Submit
+              </Button>
+            </Col>
+          </Row>
         </Form>
       </Col>
     </Row>

@@ -13,8 +13,12 @@ export const HoofedHouse = ({ client }) => {
         </Col>
       </Row>
       <Row className="justify-content-center">
-        <Col className="text-center">
-          <RandomDeerPhoto client={client} />
+        <Col xs={12} lg={8} className="text-center">
+          <RandomDeerPhoto
+            client={client}
+            buttonText="Who's in the House"
+            preLoadText="Do you want to see a hoofed ruminant mammal?"
+          />
         </Col>
       </Row>
       <ToTopButton currentPage="/house" />

@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import { BarkForm } from "../Componenets";
+import { BarkForm, RandomDeerPhoto } from "../Componenets";
+import { Row, Col } from "react-bootstrap";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 
@@ -9,7 +10,7 @@ export const AddBark = ({ client }) => {
     username: "",
     postTitle: "",
     postText: "",
-    imageUrl: "",
+    imageData: {},
     tags: "",
   });
 
@@ -35,7 +36,7 @@ export const AddBark = ({ client }) => {
           username: "",
           postTitle: "",
           postText: "",
-          imageUrl: "",
+          imageData: {},
           tags: "",
         });
         toastr.success(
@@ -48,7 +49,31 @@ export const AddBark = ({ client }) => {
       });
   };
 
+  const saveImageData = (data) => {
+    setBark({
+      ...bark,
+      imageData: {
+        url: data.urls.regular,
+        creatorUsername: data.user.name,
+        creatorLink: `https://unsplash.com/@${data.user.username}`,
+      },
+    });
+  };
+
   return (
-    <BarkForm submitHandler={submitHandler} bark={bark} setBark={setBark} />
+    <Row>
+      <Col xs={12} lg={6}>
+        <br />
+        <RandomDeerPhoto
+          client={client}
+          buttonText="Which deer are you?"
+          preLoadText=""
+          returnPhotoData={saveImageData}
+        />
+      </Col>
+      <Col xs={12} lg={6}>
+        <BarkForm submitHandler={submitHandler} bark={bark} setBark={setBark} />
+      </Col>
+    </Row>
   );
 };

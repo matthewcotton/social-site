@@ -1,8 +1,6 @@
 import React from "react";
-import { Card, Row, Col, Button } from "react-bootstrap";
-import ProfilePic from "./ProfilePic";
+import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import hoof from "../resources/noun_hoof_3071279.png";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "../Styles/Post.css";
 
 const Post = ({ currentPost, client, refreshPosts }) => {
@@ -28,7 +26,14 @@ const Post = ({ currentPost, client, refreshPosts }) => {
       <Card.Body>
         <Row>
           <Col md={3} xs={6}>
-            <ProfilePic userId={currentPost.id} />
+            <Image className="profile-pic" src={currentPost.imageData.url} />
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={currentPost.imageData.creatorLink}
+            >
+              Photographer: {currentPost.imageData.creatorUsername}
+            </a>
           </Col>
           <Col md={9}>
             <h4 className="post-title">{currentPost.postTitle}</h4>

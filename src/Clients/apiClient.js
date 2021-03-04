@@ -93,19 +93,17 @@ export class ApiClient {
   /* Secure API Calls to social site backend */
 
   addPost(data) {
-    const post = {...data, likes: "0", timestamp: Date.now(), imageUrl: "empty"}
-    // const timestamp = Date.now(); JSON.stringify(Date.now)
-    console.log(post)
+    const post = { ...data, likes: "0", timestamp: Date.now() };
     return this.authenticatedCall("post", `${url}posts/add`, post);
   }
 
   // UPDATE IMPUT TO MATCH addPost
-  updatePost(postId, username, postTitle, postText, imageUrl, tags, likes) {
+  updatePost(postId, username, postTitle, postText, imageData, tags, likes) {
     return this.authenticatedCall("put", `${url}posts/${postId}`, {
       username,
       postTitle,
       postText,
-      imageUrl,
+      imageData,
       tags,
       likes,
     });
