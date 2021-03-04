@@ -93,7 +93,7 @@ export class ApiClient {
   /* Secure API Calls to social site backend */
 
   addPost(data) {
-    const post = {...data, likes: "0", timestamp: "now", imageUrl: "empty"}
+    const post = {...data, likes: "0", timestamp: Date.now(), imageUrl: "empty"}
     // const timestamp = Date.now(); JSON.stringify(Date.now)
     console.log(post)
     return this.authenticatedCall("post", `${url}posts/add`, post);

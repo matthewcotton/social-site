@@ -1,0 +1,13 @@
+.post {
+  width: 90%;
+  margin: 0.5rem;
+}
+
+.like-btn .post-title {
+  margin: 0.5rem 0 0.5rem 0;
+}
+
+.like-hoof {
+  width: 2rem;
+  height: auto;
+}

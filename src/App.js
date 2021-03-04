@@ -17,8 +17,8 @@ const App = () => {
   );
 
   const client = new ApiClient(
-    () => this.state.token,
-    () => this.deleteUserToken()
+    () => token,
+    () => deleteUserToken()
   );
 
   toastr.options = {

@@ -3,7 +3,7 @@ import { Card, Row, Col, Button } from "react-bootstrap";
 import ProfilePic from "./ProfilePic";
 import hoof from "../resources/noun_hoof_3071279.png";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../Styles/App.css";
+import "../Styles/Post.css";
 
 const Post = ({ currentPost, client, refreshPosts }) => {
   const likeHandler = async (id) => {
@@ -11,23 +11,17 @@ const Post = ({ currentPost, client, refreshPosts }) => {
     refreshPosts();
   };
 
-  // Reevaluate if these are needed after "add post" uses api client
-  const usernameCheck = (username) => {
-    if (username === "") {
-      return "Anonymous";
-    } else {
-      return username;
-    }
+  const dateTimeOptions = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
   };
-
-  // Reevaluate if these are needed after "add post" uses api client
-  const textCheck = (text) => {
-    if (text === "") {
-      return "Hey, you didn't eneter any text in this post but I decided to post it anyway.";
-    } else {
-      return text;
-    }
-  };
+  const dateTime = new Intl.DateTimeFormat("en-GB", dateTimeOptions).format(
+    currentPost.timestamp
+  );
 
   return (
     <Card className="post">
@@ -37,17 +31,17 @@ const Post = ({ currentPost, client, refreshPosts }) => {
             <ProfilePic userId={currentPost.id} />
           </Col>
           <Col md={9}>
-            <h4>{currentPost.postTitle}</h4>
-            <p>{textCheck(currentPost.postText)}</p>
+            <h4 className="post-title">{currentPost.postTitle}</h4>
+            <p>{currentPost.postText}</p>
           </Col>
         </Row>
         <Row>
           <Col lg={3} md={4} xs={12}>
-            <h4>{usernameCheck(currentPost.username)}</h4>
+            <h4>{currentPost.username}</h4>
           </Col>
           <Col lg={3} xs={12}>
             <Button
-              className="like"
+              className="like-btn"
               variant="warning"
               id={currentPost._id}
               onClick={(e) => likeHandler(e.currentTarget.id)}
@@ -56,8 +50,8 @@ const Post = ({ currentPost, client, refreshPosts }) => {
               {currentPost.likes}{" "}
             </Button>
           </Col>
-          <Col lg={3} xs={12}>
-            <p>{currentPost.timestamp}</p>
+          <Col className="text-right">
+            <p>{dateTime}</p>
           </Col>
         </Row>
       </Card.Body>

@@ -23,22 +23,16 @@ export const AddBark = ({ client }) => {
   };
   toastr.clear();
 
-  const checkUsername = (username) => {
-    return username.length > 15 ? false : true;
-  };
-
   const submitHandler = async (event) => {
     event.preventDefault();
-    if (!checkUsername(bark.username)) {
+    if (!bark.username || !bark.postTitle || !bark.postText || !bark.tags) {
       /* ADD BETTER ERROR MESSAGES */
-      toastr.error(
-        "Username is too long. It must be 15 characters or less.",
-        "Username Error"
-      );
+      toastr.error("Please complete all form fields.", "Form Error");
       return;
     }
-    await client.addPost(bark).catch((error) => {
-      if (!error) {
+    await client
+      .addPost(bark)
+      .then(() => {
         setBark({
           username: "",
           postTitle: "",
@@ -47,14 +41,13 @@ export const AddBark = ({ client }) => {
           tags: "",
         });
         toastr.success(
-          "Buck up! Your post was successfully published.",
-          "Published posted"
+          "Buck up! Your bark was successfully published.",
+          "BARK!"
         );
-        return;
-      } else {
+      })
+      .catch((error) => {
         toastr.error(error, "Error");
-      }
-    });
+      });
   };
 
   return (
