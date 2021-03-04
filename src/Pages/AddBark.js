@@ -23,7 +23,7 @@ export const AddBark = ({ client }) => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    if (!bark.username || !bark.postTitle || !bark.postText || !bark.tags) {
+    if (!bark.username || !bark.postTitle || !bark.postText) {
       /* ADD BETTER ERROR MESSAGES */
       toastr.error("Please complete all form fields.", "Form Error");
       return;
