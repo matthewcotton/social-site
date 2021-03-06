@@ -55,6 +55,7 @@ export const LoginForm = ({ client, storeUserToken }) => {
               type="text"
               value={loginForm.username}
               placeholder="enter your username"
+              autoFocus
               onChange={(e) =>
                 setLoginForm({ ...loginForm, username: e.target.value })
               }
