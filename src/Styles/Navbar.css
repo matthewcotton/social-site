@@ -1,0 +1,13 @@
+.nav-link {
+  margin-right: 0.25rem;
+}
+
+.logout-btn {
+  color: white;
+  background-color: transparent;
+  border: none;
+}
+
+.logout-btn:hover {
+  text-decoration: underline;
+}

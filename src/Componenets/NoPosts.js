@@ -1,21 +1,24 @@
 import React from "react";
-import { Card, Row } from "react-bootstrap";
+import { Card, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "../Styles/App.css";
+import "../Styles/NoPosts.css";
 
 const NoPosts = () => {
   return (
     <Card className="no-posts">
       <Card.Body>
-        <Row>
-          <h3>No Posts</h3>
+        <Row className="justify-content-center">
+          <Col>
+            <h3>No Posts</h3>
+          </Col>
         </Row>
         <Row>
-          <p>
-            Go to the <Link to="/add">Add Post</Link> Page to create a post or
-            two.
-          </p>
+          <Col>
+            <p>
+              Go to the <Link to="/add">Add Post</Link> Page to create a post or
+              two.
+            </p>
+          </Col>
         </Row>
       </Card.Body>
     </Card>

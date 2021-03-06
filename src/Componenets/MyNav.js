@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { UserContext } from "../Context";
-import "../Styles/App.css";
+import "../Styles/Navbar.css";
 
 function MyNav({ logout }) {
   const { user } = useContext(UserContext);
@@ -31,7 +31,7 @@ function MyNav({ logout }) {
           </Navbar.Text>
           <Navbar.Text className="nav-link">
             {user ? (
-              <button to="" onClick={(e) => logout()}>
+              <button className="logout-btn navbar-dark " onClick={(e) => logout()}>
                 Log Out
               </button>
             ) : (
