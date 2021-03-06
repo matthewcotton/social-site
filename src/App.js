@@ -1,17 +1,17 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Container } from "react-bootstrap";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import { MyNav, MyFooter } from "./Componenets";
 import { AddBark, Feed, HoofedHouse, Login, PrivateRoute } from "./Pages";
 import { ApiClient } from "./Clients/apiClient";
-
+import { UserContext } from "./Context";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Styles/App.css";
 
 const App = () => {
+  const [user, setUser] = useState(null);
   const [token, setToken] = useState(
     window.localStorage.getItem("facebuck-token")
   );
@@ -20,6 +20,8 @@ const App = () => {
     () => token,
     () => deleteUserToken()
   );
+
+  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
 
   toastr.options = {
     closeButton: "true",
@@ -37,6 +39,7 @@ const App = () => {
   const deleteUserToken = () => {
     window.localStorage.removeItem("facebuck-token");
     setToken(undefined);
+    setUser(null);
     toastr.info("You have been logged out.");
   };
 
@@ -44,30 +47,35 @@ const App = () => {
 
   return (
     <Router>
-      <MyNav loggedIn={loggedIn()} logout={() => deleteUserToken()} />
-      <Container>
-        <Switch>
-          <Route path="/" exact render={() => <Feed client={client} />} />
-          <Route path="/house" render={() => <HoofedHouse client={client} />} />
-          <Route
-            path="/login"
-            render={() => (
-              <Login
-                client={client}
-                storeUserToken={(t) => storeUserToken(t)}
-                loggedIn={loggedIn()}
-              />
-            )}
-          />
+      <UserContext.Provider value={value}>
+        <MyNav loggedIn={loggedIn()} logout={() => deleteUserToken()} />
+        <Container>
+          <Switch>
+            <Route path="/" exact render={() => <Feed client={client} />} />
+            <Route
+              path="/house"
+              render={() => <HoofedHouse client={client} />}
+            />
+            <Route
+              path="/login"
+              render={() => (
+                <Login
+                  client={client}
+                  storeUserToken={(t) => storeUserToken(t)}
+                  loggedIn={loggedIn()}
+                />
+              )}
+            />
 
-          <PrivateRoute loggedIn={loggedIn} >
-            <Route path="/add" render={() => <AddBark client={client} />} />
-          </PrivateRoute>
+            <PrivateRoute loggedIn={loggedIn}>
+              <Route path="/add" render={() => <AddBark client={client} />} />
+            </PrivateRoute>
 
-          <Route path="/">Error: 404 not found</Route>
-        </Switch>
-      </Container>
-      <MyFooter />
+            <Route path="/">Error: 404 not found</Route>
+          </Switch>
+        </Container>
+        <MyFooter />
+      </UserContext.Provider>
     </Router>
   );
 };

@@ -43,6 +43,7 @@ export const AddBark = ({ client }) => {
           "Buck up! Your bark was successfully published.",
           "BARK!"
         );
+        // Then redirect to feed
       })
       .catch((error) => {
         toastr.error(error, "Error");

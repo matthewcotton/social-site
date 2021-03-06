@@ -1,6 +1,6 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
+import { UserContext } from "../Context";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 
@@ -9,6 +9,8 @@ export const LoginForm = ({ client, storeUserToken }) => {
     username: "",
     password: "",
   });
+
+  const { setUser } = useContext(UserContext);
 
   toastr.options = {
     closeButton: "true",
@@ -31,6 +33,7 @@ export const LoginForm = ({ client, storeUserToken }) => {
       .login(loginForm.username, loginForm.password)
       .then((res) => {
         storeUserToken(res.data.token);
+        setUser({ username: res.data.username });
       })
       .catch(() => {
         toastr.error(

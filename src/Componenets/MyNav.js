@@ -1,11 +1,12 @@
-import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
+import React, { useContext } from "react";
+import { Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { UserContext } from "../Context";
 import "../Styles/App.css";
 
 function MyNav({ loggedIn, logout }) {
+  const { user } = useContext(UserContext);
+
   return (
     <Navbar bg="dark" variant="dark" expand="md">
       <Link to="/">
@@ -26,12 +27,16 @@ function MyNav({ loggedIn, logout }) {
         </Nav>
         <Nav>
           <Navbar.Text className="nav-link">
+            {user ? user.username : ""}
+          </Navbar.Text>
+          <Navbar.Text className="nav-link">
             {loggedIn ? (
-              <button to="" onClick={(e) => logout()} >Log Out</button>
+              <button to="" onClick={(e) => logout()}>
+                Log Out
+              </button>
             ) : (
               <Link to="/login">Log In</Link>
             )}
-            {/* <Link to="/login">{loggedIn ? "Log Out" : "Log In"}</Link> */}
           </Navbar.Text>
           <Navbar.Text className="nav-link">
             <a href="https://www.matthewcotton.dev/#/projects">
