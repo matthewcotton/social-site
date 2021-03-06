@@ -7,7 +7,7 @@ export const PrivateRoute = (props) => {
 
   return (
     <Fragment>
-      {props.loggedIn ? props.children : <Redirect to="/login" />}
+      {user ? props.children : <Redirect to="/login" />}
     </Fragment>
   );
 };

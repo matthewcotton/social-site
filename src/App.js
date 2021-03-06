@@ -64,7 +64,7 @@ const App = () => {
               )}
             />
 
-            <PrivateRoute loggedIn={user}>
+            <PrivateRoute >
               <Route path="/add" render={() => <AddBark client={client} />} />
             </PrivateRoute>
 
