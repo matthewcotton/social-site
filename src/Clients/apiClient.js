@@ -27,10 +27,14 @@ export class ApiClient {
 
   /* Unsecure API Calls to social site backend */
 
-  async getAllPosts() {
+  // FIX LIMIT ANDF SKIP ARGS
+  async getAllPosts(limit, skip) {
+    skip = skip ? skip : 0;
+    limit = limit ? limit : 10;
     const posts = await axios({
       method: "get",
       url: `${url}posts`,
+      data: { limit, skip },
     });
     return posts.data;
   }
