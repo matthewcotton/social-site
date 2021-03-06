@@ -6,20 +6,7 @@ export const BarkForm = ({ submitHandler, bark, setBark }) => {
     <Row className="justify-content-center">
       <Col xs={12} lg={8}>
         <br />
-        {/* MAKE USERNAME AUTO POPULATED */}
         <Form onSubmit={(e) => submitHandler(e)}>
-          <Form.Group controlId="postUsername">
-            <Form.Label>Username*</Form.Label>
-            <Form.Control
-              name="username"
-              type="text"
-              required
-              value={bark.username}
-              placeholder="enter username (max 20 characters)"
-              onChange={(e) => setBark({ ...bark, username: e.target.value })}
-            />
-          </Form.Group>
-
           <Form.Group controlId="postTitle">
             <Form.Label>Post Title*</Form.Label>
             <Form.Control

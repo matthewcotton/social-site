@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../Context";
 import "../Styles/App.css";
 
-function MyNav({ loggedIn, logout }) {
+function MyNav({ logout }) {
   const { user } = useContext(UserContext);
 
   return (
@@ -30,7 +30,7 @@ function MyNav({ loggedIn, logout }) {
             {user ? user.username : ""}
           </Navbar.Text>
           <Navbar.Text className="nav-link">
-            {loggedIn ? (
+            {user ? (
               <button to="" onClick={(e) => logout()}>
                 Log Out
               </button>

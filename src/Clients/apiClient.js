@@ -97,16 +97,8 @@ export class ApiClient {
     return this.authenticatedCall("post", `${url}posts/add`, post);
   }
 
-  // UPDATE IMPUT TO MATCH addPost
-  updatePost(postId, username, postTitle, postText, imageData, tags, likes) {
-    return this.authenticatedCall("put", `${url}posts/${postId}`, {
-      username,
-      postTitle,
-      postText,
-      imageData,
-      tags,
-      likes,
-    });
+  updatePost(postId, data) {
+    return this.authenticatedCall("put", `${url}posts/${postId}`, data);
   }
 
   deletePost(postId) {

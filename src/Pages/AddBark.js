@@ -1,18 +1,21 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useContext } from "react";
 import { BarkForm, RandomDeerPhoto } from "../Componenets";
 import { Row, Col } from "react-bootstrap";
+import { UserContext } from "../Context";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 
 export const AddBark = ({ client }) => {
+  const { user } = useContext(UserContext);
   const [bark, setBark] = useState({
-    username: "",
+    username: user.username,
     postTitle: "",
     postText: "",
     imageData: {},
     tags: "",
   });
+
+  
 
   toastr.options = {
     closeButton: "true",
@@ -24,7 +27,7 @@ export const AddBark = ({ client }) => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    if (!bark.username || !bark.postTitle || !bark.postText) {
+    if ( !bark.postTitle || !bark.postText) {
       /* ADD BETTER ERROR MESSAGES */
       toastr.error("Please complete all form fields.", "Form Error");
       return;
@@ -33,7 +36,7 @@ export const AddBark = ({ client }) => {
       .addPost(bark)
       .then(() => {
         setBark({
-          username: "",
+          username: user.username,
           postTitle: "",
           postText: "",
           imageData: {},

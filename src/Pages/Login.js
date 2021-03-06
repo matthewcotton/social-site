@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import { UserContext } from "../Context";
 import { Row, Col } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import { LoginForm } from "../Componenets";
 
-export const Login = ({ client, storeUserToken, loggedIn }) => {
-  return loggedIn ? (
+export const Login = ({ client, storeUserToken }) => {
+  const { user } = useContext(UserContext);
+
+  return user ? (
     <Redirect to="/" />
   ) : (
     <div>

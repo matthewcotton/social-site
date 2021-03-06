@@ -43,12 +43,10 @@ const App = () => {
     toastr.info("You have been logged out.");
   };
 
-  const loggedIn = () => (token ? true : false);
-
   return (
     <Router>
       <UserContext.Provider value={value}>
-        <MyNav loggedIn={loggedIn()} logout={() => deleteUserToken()} />
+        <MyNav logout={() => deleteUserToken()} />
         <Container>
           <Switch>
             <Route path="/" exact render={() => <Feed client={client} />} />
@@ -62,12 +60,11 @@ const App = () => {
                 <Login
                   client={client}
                   storeUserToken={(t) => storeUserToken(t)}
-                  loggedIn={loggedIn()}
                 />
               )}
             />
 
-            <PrivateRoute loggedIn={loggedIn}>
+            <PrivateRoute loggedIn={user}>
               <Route path="/add" render={() => <AddBark client={client} />} />
             </PrivateRoute>
 
