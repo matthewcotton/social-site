@@ -1,10 +1,12 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useContext } from "react";
 import { BuildPostCards, ToTopButton, RefreshButton } from "../Componenets";
+import { ClientContext } from "../Context";
 import { Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export const Feed = ({ client }) => {
+export const Feed = () => {
   const [posts, setPosts] = useState([]);
+  const { client } = useContext(ClientContext)
 
   const refreshPosts = useCallback(async () => {
     const postsFromServer = await client.getAllPosts();

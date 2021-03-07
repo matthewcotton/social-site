@@ -2,7 +2,7 @@ import React from "react";
 import { ToTopButton, RandomDeerPhoto } from "../Componenets";
 import { Row, Col } from "react-bootstrap";
 
-export const HoofedHouse = ({ client }) => {
+export const HoofedHouse = () => {
   return (
     <div>
       <Row className="justify-content-center">
@@ -15,7 +15,6 @@ export const HoofedHouse = ({ client }) => {
       <Row className="justify-content-center">
         <Col xs={12} lg={8} className="text-center">
           <RandomDeerPhoto
-            client={client}
             buttonText="Who's in the House"
             preLoadText="Do you want to see a hoofed ruminant mammal?"
           />

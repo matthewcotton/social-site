@@ -4,7 +4,7 @@ import { Row, Col } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import { LoginForm } from "../Componenets";
 
-export const Login = ({ client, storeUserToken }) => {
+export const Login = ({ storeUserToken }) => {
   const { user } = useContext(UserContext);
 
   return user ? (
@@ -19,7 +19,7 @@ export const Login = ({ client, storeUserToken }) => {
       </Row>
       <Row className="justify-content-center">
         <Col xs={10} md={6} lg={4}>
-          <LoginForm client={client} storeUserToken={storeUserToken} />
+          <LoginForm storeUserToken={storeUserToken} />
         </Col>
       </Row>
     </div>

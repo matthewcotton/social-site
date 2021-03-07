@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ClientContext } from "../Context";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import hoof from "../resources/noun_hoof_3071279.png";
 import "../Styles/Post.css";
 
-const Post = ({ currentPost, client, refreshPosts }) => {
+const Post = ({ currentPost, refreshPosts }) => {
+  const { client } = useContext(ClientContext);
+
   const likeHandler = async (id) => {
     await client.addLike(id);
     refreshPosts();

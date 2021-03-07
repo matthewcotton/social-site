@@ -1,15 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ClientContext } from "../Context";
+
 import { useState } from "react";
 import { Row, Col, Button, Image } from "react-bootstrap";
 import "../Styles/RandomDeerPhoto.css";
 
-const RandomDeerPhoto = ({
-  client,
-  buttonText,
-  preLoadText,
-  returnPhotoData,
-}) => {
+const RandomDeerPhoto = ({ buttonText, preLoadText, returnPhotoData }) => {
   const [randomPhoto, setRandomPhoto] = useState(null);
+  const { client } = useContext(ClientContext);
 
   const randomButtonHandler = async () => {
     const photoFromUnsplash = await client.unsplashRandomPhoto("deer", 1);

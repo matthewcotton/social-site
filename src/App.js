@@ -4,7 +4,7 @@ import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import { MyNav, MyFooter } from "./Componenets";
 import { AddBark, Feed, HoofedHouse, Login, PrivateRoute } from "./Pages";
 import { ApiClient } from "./Clients/apiClient";
-import { UserContext } from "./Context";
+import { UserContext, ClientContext } from "./Context";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -21,7 +21,8 @@ const App = () => {
     () => deleteUserToken()
   );
 
-  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
+  const userValue = useMemo(() => ({ user, setUser }), [user, setUser]);
+  const clientValue = { client };
 
   toastr.options = {
     closeButton: "true",
@@ -45,33 +46,29 @@ const App = () => {
 
   return (
     <Router>
-      <UserContext.Provider value={value}>
-        <MyNav logout={() => deleteUserToken()} />
-        <Container>
-          <Switch>
-            <Route path="/" exact render={() => <Feed client={client} />} />
-            <Route
-              path="/house"
-              render={() => <HoofedHouse client={client} />}
-            />
-            <Route
-              path="/login"
-              render={() => (
-                <Login
-                  client={client}
-                  storeUserToken={(t) => storeUserToken(t)}
-                />
-              )}
-            />
+      <UserContext.Provider value={userValue}>
+        <ClientContext.Provider value={clientValue}>
+          <MyNav logout={() => deleteUserToken()} />
+          <Container>
+            <Switch>
+              <Route path="/" exact render={() => <Feed />} />
+              <Route path="/house" render={() => <HoofedHouse />} />
+              <Route
+                path="/login"
+                render={() => (
+                  <Login storeUserToken={(t) => storeUserToken(t)} />
+                )}
+              />
 
-            <PrivateRoute >
-              <Route path="/add" render={() => <AddBark client={client} />} />
-            </PrivateRoute>
+              <PrivateRoute>
+                <Route path="/add" render={() => <AddBark />} />
+              </PrivateRoute>
 
-            <Route path="/">Error: 404 not found</Route>
-          </Switch>
-        </Container>
-        <MyFooter />
+              <Route path="/">Error: 404 not found</Route>
+            </Switch>
+          </Container>
+          <MyFooter />
+        </ClientContext.Provider>
       </UserContext.Provider>
     </Router>
   );

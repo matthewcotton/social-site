@@ -1,12 +1,11 @@
 import React, { useState, useContext } from "react";
 import { BarkForm, RandomDeerPhoto } from "../Componenets";
 import { Row, Col } from "react-bootstrap";
-import { UserContext } from "../Context";
+import { UserContext, ClientContext } from "../Context";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 
-export const AddBark = ({ client }) => {
-  const { user } = useContext(UserContext);
+export const AddBark = () => {
   const [bark, setBark] = useState({
     username: user.username,
     postTitle: "",
@@ -14,8 +13,8 @@ export const AddBark = ({ client }) => {
     imageData: {},
     tags: "",
   });
-
-  
+  const { user } = useContext(UserContext);
+  const { client } = useContext(ClientContext);
 
   toastr.options = {
     closeButton: "true",
@@ -27,7 +26,7 @@ export const AddBark = ({ client }) => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    if ( !bark.postTitle || !bark.postText) {
+    if (!bark.postTitle || !bark.postText) {
       /* ADD BETTER ERROR MESSAGES */
       toastr.error("Please complete all form fields.", "Form Error");
       return;
@@ -69,7 +68,6 @@ export const AddBark = ({ client }) => {
       <Col xs={12} lg={6}>
         <br />
         <RandomDeerPhoto
-          client={client}
           buttonText="Which deer are you?"
           preLoadText=""
           returnPhotoData={saveImageData}

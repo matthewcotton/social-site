@@ -1,16 +1,16 @@
 import React, { useState, useContext } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
-import { UserContext } from "../Context";
+import { UserContext, ClientContext } from "../Context";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 
-export const LoginForm = ({ client, storeUserToken }) => {
+export const LoginForm = ({ storeUserToken }) => {
   const [loginForm, setLoginForm] = useState({
     username: "",
     password: "",
   });
-
   const { setUser } = useContext(UserContext);
+  const { client } = useContext(ClientContext)
 
   toastr.options = {
     closeButton: "true",
