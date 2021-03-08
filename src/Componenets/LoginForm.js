@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import { UserContext, ClientContext } from "../Context";
 import toastr from "toastr";
+import { toastrSettings } from "../Settings";
 import "toastr/build/toastr.min.css";
 
 export const LoginForm = ({ storeUserToken }) => {
@@ -10,15 +11,9 @@ export const LoginForm = ({ storeUserToken }) => {
     password: "",
   });
   const { setUser } = useContext(UserContext);
-  const { client } = useContext(ClientContext)
+  const { client } = useContext(ClientContext);
 
-  toastr.options = {
-    closeButton: "true",
-    positionClass: "toast-top-center",
-    newestOnTop: "true",
-    timeOut: "3000",
-  };
-  toastr.clear();
+  toastr.options = toastrSettings;
 
   const submitHandler = (e) => {
     e.preventDefault();

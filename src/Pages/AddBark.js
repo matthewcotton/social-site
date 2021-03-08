@@ -3,9 +3,11 @@ import { BarkForm, RandomDeerPhoto } from "../Componenets";
 import { Row, Col } from "react-bootstrap";
 import { UserContext, ClientContext } from "../Context";
 import toastr from "toastr";
+import { toastrSettings } from "../Settings";
 import "toastr/build/toastr.min.css";
 
 export const AddBark = () => {
+  const { user } = useContext(UserContext);
   const [bark, setBark] = useState({
     username: user.username,
     postTitle: "",
@@ -13,16 +15,9 @@ export const AddBark = () => {
     imageData: {},
     tags: "",
   });
-  const { user } = useContext(UserContext);
   const { client } = useContext(ClientContext);
 
-  toastr.options = {
-    closeButton: "true",
-    positionClass: "toast-top-center",
-    newestOnTop: "true",
-    timeOut: "3000",
-  };
-  toastr.clear();
+  toastr.options = toastrSettings;
 
   const submitHandler = async (event) => {
     event.preventDefault();

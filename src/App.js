@@ -6,6 +6,7 @@ import { AddBark, Feed, HoofedHouse, Login, PrivateRoute } from "./Pages";
 import { ApiClient } from "./Clients/apiClient";
 import { UserContext, ClientContext } from "./Context";
 import toastr from "toastr";
+import { toastrSettings } from "./Settings";
 import "toastr/build/toastr.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Styles/App.css";
@@ -24,13 +25,7 @@ const App = () => {
   const userValue = useMemo(() => ({ user, setUser }), [user, setUser]);
   const clientValue = { client };
 
-  toastr.options = {
-    closeButton: "true",
-    positionClass: "toast-top-center",
-    newestOnTop: "true",
-    timeOut: "5000",
-  };
-  toastr.clear();
+  toastr.options = toastrSettings;
 
   const storeUserToken = (t) => {
     window.localStorage.setItem("facebuck-token", t);
