@@ -11,7 +11,6 @@ const RandomDeerPhoto = ({ buttonText, preLoadText, returnPhotoData }) => {
 
   const randomButtonHandler = async () => {
     const photoFromUnsplash = await client.unsplashRandomPhoto("deer", 1);
-    console.log(photoFromUnsplash);
     setRandomPhoto(photoFromUnsplash.response);
     if (returnPhotoData) {
       returnPhotoData(photoFromUnsplash.response[0]);

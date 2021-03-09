@@ -37,11 +37,13 @@ export class ApiClient {
     return posts.data;
   }
 
-  async getOneUsersPosts(username) {
-    return await axios({
-      method: "get",
-      url: `${url}posts/${username}`,
+  async getOneUsersPosts(username, limit, skip) {
+    skip = skip ? skip : 0;
+    limit = limit ? limit : 10;
+    const posts = await axios.get(`${url}posts/user/${username}`, {
+      params: { limit, skip },
     });
+    return posts.data;
   }
 
   async getOnePost(postId) {

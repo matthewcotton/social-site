@@ -9,7 +9,7 @@ export const MoreButton = ({ incrementPostsPosition }) => {
       onClick={() => incrementPostsPosition()}
       variant="warning"
     >
-      More Feed Please
+      More Please
     </Button>
   );
 };

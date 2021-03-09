@@ -2,24 +2,25 @@ import { useState, useEffect, useCallback, useContext } from "react";
 import {
   BuildPostCards,
   ToTopButton,
-  RefreshButton,
   MoreButton,
 } from "../Componenets";
-import { ClientContext } from "../Context";
+import { ClientContext, UserContext } from "../Context";
 import { Row, Col } from "react-bootstrap";
 import toastr from "toastr";
 import { toastrSettings } from "../Settings";
 import "toastr/build/toastr.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export const Feed = () => {
+export const UserBarks = () => {
   const [posts, setPosts] = useState([]);
   const [postsPosition, setPostsPosition] = useState({ limit: 10, skip: 0 });
+  const { user } = useContext(UserContext);
   const { client } = useContext(ClientContext);
   toastr.options = toastrSettings;
 
   const refreshPosts = useCallback(async () => {
-    const postsFromServer = await client.getAllPosts(
+    const postsFromServer = await client.getOneUsersPosts(
+      user.username,
       postsPosition.limit,
       postsPosition.skip
     );
@@ -28,7 +29,7 @@ export const Feed = () => {
     } else {
       toastr.warning("No more barks available");
     }
-  }, [client, postsPosition.skip, postsPosition.limit]);
+  }, [client, postsPosition, user]);
 
   const incrementPostsPosition = useCallback(() => {
     setPostsPosition({
@@ -46,12 +47,7 @@ export const Feed = () => {
       <Row className="justify-content-center">
         <Col>
           <br />
-          <h1 className="text-center">Deer Feed</h1>
-        </Col>
-      </Row>
-      <Row className="justify-content-center">
-        <Col className="text-center" xs={8} lg={4}>
-          <RefreshButton refreshPosts={refreshPosts} />
+          <h1 className="text-center">Your Barks</h1>
         </Col>
       </Row>
       <BuildPostCards

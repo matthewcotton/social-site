@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import { Container } from "react-bootstrap";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import { MyNav, MyFooter } from "./Componenets";
-import { AddBark, Feed, HoofedHouse, Login, PrivateRoute } from "./Pages";
+import { AddBark, Feed, HoofedHouse, Login, PrivateRoute, UserBarks } from "./Pages";
 import { ApiClient } from "./Clients/apiClient";
 import { UserContext, ClientContext } from "./Context";
 import toastr from "toastr";
@@ -56,6 +56,7 @@ const App = () => {
 
               <PrivateRoute>
                 <Route path="/add" render={() => <AddBark />} />
+                <Route path="/userbarks" render={() => <UserBarks />} />
               </PrivateRoute>
 
               <Route path="/">Error: 404 not found</Route>
