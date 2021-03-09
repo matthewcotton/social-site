@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { BarkForm, RandomDeerPhoto } from "../Componenets";
 import { Row, Col } from "react-bootstrap";
 import { UserContext, ClientContext } from "../Context";
+import { Redirect } from "react-router-dom";
 import toastr from "toastr";
 import { toastrSettings } from "../Settings";
 import "toastr/build/toastr.min.css";
@@ -15,6 +16,7 @@ export const AddBark = () => {
     imageData: {},
     tags: "",
   });
+  const [submitted, setSubmitted] = useState(false);
   const { client } = useContext(ClientContext);
 
   toastr.options = toastrSettings;
@@ -40,7 +42,7 @@ export const AddBark = () => {
           "Buck up! Your bark was successfully published.",
           "BARK!"
         );
-        // Then redirect to feed
+        setSubmitted(true);
       })
       .catch((error) => {
         toastr.error(error, "Error");
@@ -59,18 +61,28 @@ export const AddBark = () => {
   };
 
   return (
-    <Row>
-      <Col xs={12} lg={6}>
-        <br />
-        <RandomDeerPhoto
-          buttonText="Which deer are you?"
-          preLoadText=""
-          returnPhotoData={saveImageData}
-        />
-      </Col>
-      <Col xs={12} lg={6}>
-        <BarkForm submitHandler={submitHandler} bark={bark} setBark={setBark} />
-      </Col>
-    </Row>
+    <>
+      {submitted ? (
+        <Redirect to="/" />
+      ) : (
+        <Row>
+          <Col xs={12} lg={6}>
+            <br />
+            <RandomDeerPhoto
+              buttonText="Which deer are you?"
+              preLoadText=""
+              returnPhotoData={saveImageData}
+            />
+          </Col>
+          <Col xs={12} lg={6}>
+            <BarkForm
+              submitHandler={submitHandler}
+              bark={bark}
+              setBark={setBark}
+            />
+          </Col>
+        </Row>
+      )}
+    </>
   );
 };
