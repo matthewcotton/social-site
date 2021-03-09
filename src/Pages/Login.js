@@ -1,14 +1,21 @@
 import React, { useContext } from "react";
 import { UserContext } from "../Context";
 import { Row, Col } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
+import { Redirect, useLocation } from "react-router-dom";
 import { LoginForm } from "../Componenets";
+
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
 export const Login = ({ storeUserToken }) => {
   const { user } = useContext(UserContext);
+  const query = useQuery();
+  let route = query.get("route");
+  route = route ? route : "";
 
   return user ? (
-    <Redirect to="/" />
+    <Redirect to={`/${route}`} />
   ) : (
     <div>
       <Row className="justify-content-center">

@@ -31,10 +31,8 @@ export class ApiClient {
   async getAllPosts(limit, skip) {
     skip = skip ? skip : 0;
     limit = limit ? limit : 10;
-    const posts = await axios({
-      method: "get",
-      url: `${url}posts`,
-      data: { limit, skip },
+    const posts = await axios.get(`${url}posts`, {
+      params: { limit, skip },
     });
     return posts.data;
   }
