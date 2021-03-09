@@ -1,17 +1,41 @@
 import { useState, useEffect, useCallback, useContext } from "react";
-import { BuildPostCards, ToTopButton, RefreshButton } from "../Componenets";
+import {
+  BuildPostCards,
+  ToTopButton,
+  RefreshButton,
+  MoreButton,
+} from "../Componenets";
 import { ClientContext } from "../Context";
 import { Row, Col } from "react-bootstrap";
+import toastr from "toastr";
+import { toastrSettings } from "../Settings";
+import "toastr/build/toastr.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export const Feed = () => {
   const [posts, setPosts] = useState([]);
-  const { client } = useContext(ClientContext)
+  const [postsPosition, setPostsPosition] = useState({ limit: 10, skip: 0 });
+  const { client } = useContext(ClientContext);
+  toastr.options = toastrSettings;
 
   const refreshPosts = useCallback(async () => {
-    const postsFromServer = await client.getAllPosts();
-    setPosts(postsFromServer);
-  }, [client]);
+    const postsFromServer = await client.getAllPosts(
+      postsPosition.limit,
+      postsPosition.skip
+    );
+    if (postsFromServer.length > 0) {
+      setPosts(postsFromServer);
+    } else {
+      toastr.warning("No more posts available");
+    }
+  }, [client, postsPosition.skip, postsPosition.limit]);
+
+  const incrementPostsPosition = useCallback(() => {
+    setPostsPosition({
+      ...postsPosition,
+      skip: postsPosition.skip + postsPosition.limit,
+    });
+  }, [postsPosition]);
 
   useEffect(() => {
     refreshPosts();
@@ -35,6 +59,11 @@ export const Feed = () => {
         posts={posts}
         refreshPosts={refreshPosts}
       />
+      <Row className="justify-content-center">
+        <Col className="text-center">
+          <MoreButton incrementPostsPosition={incrementPostsPosition} />
+        </Col>
+      </Row>
       <ToTopButton currentPage="" />
     </div>
   );

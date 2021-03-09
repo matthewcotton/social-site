@@ -24,7 +24,6 @@ const App = () => {
 
   const userValue = useMemo(() => ({ user, setUser }), [user, setUser]);
   const clientValue = { client };
-
   toastr.options = toastrSettings;
 
   const storeUserToken = (t) => {
