@@ -8,6 +8,7 @@ const RefreshButton = ({ refreshPosts }) => {
 
   return (
     <Button
+    className="refresh-btn"
       onClick={(e) => refreshHandler(e.currentTarget.id)}
       variant="warning"
     >
