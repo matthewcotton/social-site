@@ -65,23 +65,32 @@ export const AddBark = () => {
       {submitted ? (
         <Redirect to="/" />
       ) : (
-        <Row>
-          <Col xs={12} lg={6}>
-            <br />
-            <RandomDeerPhoto
-              buttonText="Which deer are you?"
-              preLoadText=""
-              returnPhotoData={saveImageData}
-            />
-          </Col>
-          <Col xs={12} lg={6}>
-            <BarkForm
-              submitHandler={submitHandler}
-              bark={bark}
-              setBark={setBark}
-            />
-          </Col>
-        </Row>
+        <>
+          <Row className="justify-content-center">
+            <Col>
+              <br />
+              <h1 className="text-center">Add Bark</h1>
+              <br />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12} lg={6}>
+              <br />
+              <RandomDeerPhoto
+                buttonText="Which deer are you?"
+                preLoadText=""
+                returnPhotoData={saveImageData}
+              />
+            </Col>
+            <Col xs={12} lg={6}>
+              <BarkForm
+                submitHandler={submitHandler}
+                bark={bark}
+                setBark={setBark}
+              />
+            </Col>
+          </Row>
+        </>
       )}
     </>
   );
