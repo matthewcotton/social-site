@@ -2,7 +2,7 @@ import React from "react";
 import { Post, NoPosts } from "../Componenets";
 import { Row } from "react-bootstrap";
 
-const BuildPostCards = ({ refreshPosts, posts }) => {
+const BuildPostCards = ({ refreshPosts, posts, editable }) => {
   return (
     <div>
       {posts.length === 0 ? (
@@ -14,6 +14,7 @@ const BuildPostCards = ({ refreshPosts, posts }) => {
               key={currentPost._id}
               currentPost={currentPost}
               refreshPosts={refreshPosts}
+              editable={editable}
             />
           </Row>
         ))

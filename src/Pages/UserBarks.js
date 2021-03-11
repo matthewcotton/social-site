@@ -1,9 +1,5 @@
 import { useState, useEffect, useCallback, useContext } from "react";
-import {
-  BuildPostCards,
-  ToTopButton,
-  MoreButton,
-} from "../Componenets";
+import { BuildPostCards, ToTopButton, MoreButton } from "../Componenets";
 import { ClientContext, UserContext } from "../Context";
 import { Row, Col } from "react-bootstrap";
 import toastr from "toastr";
@@ -54,6 +50,7 @@ export const UserBarks = () => {
         client={client}
         posts={posts}
         refreshPosts={refreshPosts}
+        editable={true}
       />
       <Row className="justify-content-center">
         <Col className="text-center">

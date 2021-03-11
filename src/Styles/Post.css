@@ -1,6 +1,10 @@
 .post {
-  width: 90%;
+  width: 95%;
   margin: 0.5rem;
+}
+
+.post-body {
+  padding-bottom: 0.5rem;
 }
 
 .like-btn .post-title {
@@ -15,4 +19,21 @@
 .profile-pic {
   width: 100%;
   height: auto;
+}
+
+.edit-btn {
+  margin: 0.4rem 0 0.4rem 0;
+}
+
+a.edit-link {
+  color: black;
+  
+}
+
+a.edit-link:hover {
+  text-decoration: none;
+}
+
+.post-col {
+  padding: 0 5px 0 5px;
 }

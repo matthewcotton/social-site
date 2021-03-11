@@ -27,7 +27,6 @@ export class ApiClient {
 
   /* Unsecure API Calls to social site backend */
 
-  // FIX LIMIT ANDF SKIP ARGS
   async getAllPosts(limit, skip) {
     skip = skip ? skip : 0;
     limit = limit ? limit : 10;

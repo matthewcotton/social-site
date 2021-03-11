@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
 import { ClientContext } from "../Context";
+import { Link } from "react-router-dom";
 import { Card, Row, Col, Button, Image } from "react-bootstrap";
 import hoof from "../resources/noun_hoof_3071279.png";
 import "../Styles/Post.css";
+const querystring = require('querystring');
 
-const Post = ({ currentPost, refreshPosts }) => {
+const Post = ({ currentPost, refreshPosts, editable }) => {
   const { client } = useContext(ClientContext);
 
   const likeHandler = async (id) => {
@@ -24,30 +26,46 @@ const Post = ({ currentPost, refreshPosts }) => {
     currentPost.timestamp
   );
 
+  let queryString = querystring.encode(currentPost);
+
+  // var queryString = Object.keys(currentPost).map(key => key + '=' + currentPost[key]).join('&');
+
   return (
     <Card className="post">
-      <Card.Body>
+      <Card.Body className="post-body">
         <Row>
-          <Col md={3} xs={6}>
+          <Col className="post-col" md={3} xs={5}>
             <Image className="profile-pic" src={currentPost.imageData.url} />
             <a
               target="_blank"
               rel="noreferrer"
               href={currentPost.imageData.creatorLink}
             >
-              Photographer: {currentPost.imageData.creatorUsername}
+              {currentPost.imageData.creatorUsername}
             </a>
           </Col>
-          <Col md={9}>
+          <Col className="post-col" xs={7} md={8}>
             <h4 className="post-title">{currentPost.postTitle}</h4>
-            <p>{currentPost.postText}</p>
+            <p className="post-text">{currentPost.postText}</p>
           </Col>
+          {editable && (
+            <Col className="post-col">
+              <Button className="edit-btn" variant="warning">
+                <Link
+                  className="edit-link"
+                  to={`/editbark?${queryString}`}
+                >
+                  Edit
+                </Link>
+              </Button>
+            </Col>
+          )}
         </Row>
         <Row>
-          <Col lg={3} md={4} xs={12}>
+          <Col className="post-col" lg={3} md={4} xs={12}>
             <h4>{currentPost.username}</h4>
           </Col>
-          <Col lg={3} xs={12}>
+          <Col className="post-col" lg={3} xs={12}>
             <Button
               className="like-btn"
               variant="warning"
@@ -58,7 +76,7 @@ const Post = ({ currentPost, refreshPosts }) => {
               {currentPost.likes}{" "}
             </Button>
           </Col>
-          <Col className="text-right">
+          <Col className="post-col align-self-end text-right">
             <p>{dateTime}</p>
           </Col>
         </Row>

@@ -58,6 +58,7 @@ export const Feed = () => {
         client={client}
         posts={posts}
         refreshPosts={refreshPosts}
+        editable={false}
       />
       <Row className="justify-content-center">
         <Col className="text-center">

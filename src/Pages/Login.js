@@ -4,6 +4,7 @@ import { Row, Col } from "react-bootstrap";
 import { Redirect, useLocation } from "react-router-dom";
 import { LoginForm } from "../Componenets";
 
+// Split out into a service function
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
