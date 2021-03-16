@@ -4,7 +4,7 @@ import env from "react-dotenv";
 
 const url = "https://lit-harbor-58321.herokuapp.com/"; // Make env variable
 const unsplashApi = createApi({
-  accessKey: env.UNSPLASHACCESSKEY,
+  accessKey: process.env.UNSPLASHACCESSKEY,
 });
 
 export class ApiClient {
