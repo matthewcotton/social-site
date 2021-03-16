@@ -1,0 +1,9 @@
+.refresh-hoof {
+  width: 2rem;
+  height: auto;
+  transform: rotate(90deg);
+}
+
+.refresh-btn {
+  margin: 1rem;
+}

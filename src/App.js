@@ -1,71 +1,81 @@
-import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Container from "react-bootstrap/Container";
+import React, { useState, useMemo } from "react";
+import { Container } from "react-bootstrap";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
-import ViewPosts from "./ViewPosts";
-import Add from "./Add";
-import MyNav from "./MyNav";
-import MyFooter from "./MyFooter";
-import "./App.css";
+import { MyNav, MyFooter } from "./Componenets";
+import {
+  AddBark,
+  Feed,
+  HoofedHouse,
+  Login,
+  PrivateRoute,
+  UserBarks,
+  EditBark,
+} from "./Pages";
+import { ApiClient } from "./Clients/apiClient";
+import { UserContext, ClientContext } from "./Context";
+import toastr from "toastr";
+import { toastrSettings } from "./Settings";
+import "toastr/build/toastr.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./Styles/App.css";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      posts: [],
-    };
-  }
+const App = () => {
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(
+    window.localStorage.getItem("facebuck-token")
+  );
 
-  componentDidMount() {
-    const listContents = localStorage.getItem("posts");
-    this.setState({ listItems: JSON.parse(listContents) || [] });
-  }
+  const client = new ApiClient(
+    () => token,
+    () => deleteUserToken()
+  );
 
-  updatePosts(id, ref, username, text, likes) {
-    const newPost = { id, ref, username, text, likes };
-    this.setState(
-      (state) => ({
-        posts: state.posts.concat(newPost),
-      }),
-      () => localStorage.setItem("posts", JSON.stringify(this.state.posts))
-    );
-  }
+  const userValue = useMemo(() => ({ user, setUser }), [user, setUser]);
+  const clientValue = { client };
+  toastr.options = toastrSettings;
 
-  increaseLikeCount(id) {
-    let currentPosts = this.state.posts;
-    currentPosts[id - 1].likes++;
-    this.setState({
-      posts: Object.assign(currentPosts, this.state.posts),
-    });
-  }
+  const storeUserToken = (t) => {
+    window.localStorage.setItem("facebuck-token", t);
+    setToken(t);
+  };
 
-  render() {
-    return (
-      <Router>
-        <MyNav />
-        <Container>
-          <Switch>
-            <Route path="/add">
-              <Add
-                onsubmit={(id, ref, username, text, likes) =>
-                  this.updatePosts(id, ref, username, text, likes)
-                }
-                postListLength={this.state.posts.length}
+  const deleteUserToken = () => {
+    window.localStorage.removeItem("facebuck-token");
+    setToken(undefined);
+    setUser(null);
+    toastr.info("You have been logged out.");
+  };
+
+  return (
+    <Router>
+      <UserContext.Provider value={userValue}>
+        <ClientContext.Provider value={clientValue}>
+          <MyNav logout={() => deleteUserToken()} />
+          <Container>
+            <Switch>
+              <Route path="/" exact render={() => <Feed />} />
+              <Route path="/house" render={() => <HoofedHouse />} />
+              <Route
+                path="/login"
+                render={() => (
+                  <Login storeUserToken={(t) => storeUserToken(t)} />
+                )}
               />
-            </Route>
-            <Route exact path="/">
-              <ViewPosts
-                postList={this.state.posts}
-                addLike={(id) => this.increaseLikeCount(id)}
-              />
-            </Route>
-            <Route path="/">Error: 404 not found</Route>
-          </Switch>
-        </Container>
-        <MyFooter />
-      </Router>
-    );
-  }
-}
+
+              <PrivateRoute>
+                <Route path="/add" render={() => <AddBark />} />
+                <Route path="/userbarks" render={() => <UserBarks />} />
+                <Route path="/editbark" render={() => <EditBark />} />
+              </PrivateRoute>
+
+              <Route path="/">Error: 404 not found</Route>
+            </Switch>
+          </Container>
+          <MyFooter />
+        </ClientContext.Provider>
+      </UserContext.Provider>
+    </Router>
+  );
+};
 
 export default App;

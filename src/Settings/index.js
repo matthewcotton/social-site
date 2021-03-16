@@ -1,0 +1,1 @@
+export { toastrSettings } from "./toastrSettings";
