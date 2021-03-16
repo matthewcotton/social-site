@@ -1,10 +1,10 @@
 import axios from "axios";
 import { createApi } from "unsplash-js";
-// import env from "react-dotenv";
+import env from "react-dotenv";
 
 const url = "https://lit-harbor-58321.herokuapp.com/"; // Make env variable
 const unsplashApi = createApi({
-  accessKey: process.env.UNSPLASHACCESSKEY,
+  accessKey: env.UNSPLASHACCESSKEY,
 });
 
 export class ApiClient {
