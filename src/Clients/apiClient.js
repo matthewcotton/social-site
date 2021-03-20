@@ -4,7 +4,7 @@ import env from "react-dotenv";
 
 const url = "https://lit-harbor-58321.herokuapp.com/"; // Make env variable
 const unsplashApi = createApi({
-  accessKey: process.env.UNSPLASHACCESSKEY,
+  accessKey: env.UNSPLASHACCESSKEY,
 });
 
 export class ApiClient {
@@ -100,8 +100,9 @@ export class ApiClient {
     return this.authenticatedCall("post", `${url}posts/add`, post);
   }
 
+  //needs updating and splitting out into username and password
   updatePost(postId, data) {
-    return this.authenticatedCall("put", `${url}posts/${postId}`, data);
+    return this.authenticatedCall("put", `${url}posts/${postId}`, data); 
   }
 
   deletePost(postId) {

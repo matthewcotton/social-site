@@ -15,7 +15,7 @@ const NoPosts = () => {
         <Row>
           <Col>
             <p>
-              Go to the <Link to="/add">Add Post</Link> Page to create a post or
+              Go to the <Link to="/add">Add Bark</Link> Page to create a post or
               two.
             </p>
           </Col>
