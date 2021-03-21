@@ -3,7 +3,6 @@ import { BuildPostCards, ToTopButton, MoreButton } from "../Componenets";
 import { ClientContext, UserContext } from "../Context";
 import { Row, Col } from "react-bootstrap";
 import toastr from "toastr";
-import { toastrSettings } from "../Settings";
 import "toastr/build/toastr.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -12,7 +11,6 @@ export const UserBarks = () => {
   const [postsPosition, setPostsPosition] = useState({ limit: 10, skip: 0 });
   const { user } = useContext(UserContext);
   const { client } = useContext(ClientContext);
-  toastr.options = toastrSettings;
 
   const refreshPosts = useCallback(async () => {
     const postsFromServer = await client.getOneUsersPosts(

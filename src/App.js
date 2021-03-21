@@ -10,6 +10,7 @@ import {
   PrivateRoute,
   UserBarks,
   EditBark,
+  NewUser,
 } from "./Pages";
 import { ApiClient } from "./Clients/apiClient";
 import { UserContext, ClientContext } from "./Context";
@@ -54,6 +55,7 @@ const App = () => {
           <Container>
             <Switch>
               <Route path="/" exact render={() => <Feed />} />
+              <Route path="/new-user" render={() => <NewUser />} />
               <Route path="/house" render={() => <HoofedHouse />} />
               <Route
                 path="/login"

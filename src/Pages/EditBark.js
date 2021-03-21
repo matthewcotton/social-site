@@ -4,7 +4,6 @@ import { BarkForm } from "../Componenets";
 import { Row, Col } from "react-bootstrap";
 import { Redirect, useLocation } from "react-router-dom";
 import toastr from "toastr";
-import { toastrSettings } from "../Settings";
 import "toastr/build/toastr.min.css";
 
 // Split out into a service function
@@ -33,8 +32,6 @@ export const EditBark = () => {
 
   const [submitted, setSubmitted] = useState(false);
   const { client } = useContext(ClientContext);
-
-  toastr.options = toastrSettings;
 
   const submitHandler = async (e) => {
     e.preventDefault();

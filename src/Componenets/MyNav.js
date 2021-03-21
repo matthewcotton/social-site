@@ -27,7 +27,11 @@ function MyNav({ logout }) {
         </Nav>
         <Nav>
           <Navbar.Text className="nav-link">
-            {user ? <Link to="/userbarks">{user.username}</Link> : ""}
+            {user ? (
+              <Link to="/userbarks">{user.username}</Link>
+            ) : (
+              <Link to="/new-user">New User</Link>
+            )}
           </Navbar.Text>
           <Navbar.Text className="nav-link">
             {user ? (

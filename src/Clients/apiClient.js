@@ -55,7 +55,7 @@ export class ApiClient {
   async addUser(username, password) {
     return await axios({
       method: "post",
-      url: `${url}/user/add`,
+      url: `${url}user/add`,
       data: { username, password },
     });
   }

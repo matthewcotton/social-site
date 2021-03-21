@@ -9,3 +9,4 @@ export { default as RandomDeerPhoto } from "./RandomDeerPhoto";
 export { LoginForm } from "./LoginForm";
 export { BarkForm } from "./BarkForm";
 export { MoreButton } from "./MoreButton";
+export { NewUserForm } from "./NewUserForm";

@@ -4,7 +4,6 @@ import { Row, Col } from "react-bootstrap";
 import { UserContext, ClientContext } from "../Context";
 import { Redirect } from "react-router-dom";
 import toastr from "toastr";
-import { toastrSettings } from "../Settings";
 import "toastr/build/toastr.min.css";
 
 export const AddBark = () => {
@@ -19,13 +18,17 @@ export const AddBark = () => {
   const [submitted, setSubmitted] = useState(false);
   const { client } = useContext(ClientContext);
 
-  toastr.options = toastrSettings;
-
   const submitHandler = async (event) => {
     event.preventDefault();
     if (!bark.postTitle || !bark.postText) {
-      /* ADD BETTER ERROR MESSAGES */
-      toastr.error("Please complete all form fields.", "Form Error");
+      toastr.error("Please complete all form fields.", "Complete Form");
+      return;
+    }
+    if (!bark.imageData.url) {
+      toastr.error(
+        "Please click 'Which deer are you?' to select a photo.",
+        "Photo Required"
+      );
       return;
     }
     await client

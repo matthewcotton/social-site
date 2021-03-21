@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import { UserContext, ClientContext } from "../Context";
 import toastr from "toastr";
-import { toastrSettings } from "../Settings";
 import "toastr/build/toastr.min.css";
 
 export const LoginForm = ({ storeUserToken }) => {
@@ -12,8 +11,6 @@ export const LoginForm = ({ storeUserToken }) => {
   });
   const { setUser } = useContext(UserContext);
   const { client } = useContext(ClientContext);
-
-  toastr.options = toastrSettings;
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -30,9 +27,9 @@ export const LoginForm = ({ storeUserToken }) => {
         storeUserToken(res.data.token);
         setUser({ username: res.data.username });
       })
-      .catch(() => {
+      .catch((err) => {
         toastr.error(
-          "An error occured while logging in. Please try again.",
+          `An error occured while logging in. Please try again. ${err.response.data}.`,
           "Login Error"
         );
       });
@@ -51,6 +48,7 @@ export const LoginForm = ({ storeUserToken }) => {
               value={loginForm.username}
               placeholder="enter your username"
               autoFocus
+              required
               onChange={(e) =>
                 setLoginForm({ ...loginForm, username: e.target.value })
               }
@@ -63,6 +61,7 @@ export const LoginForm = ({ storeUserToken }) => {
               type="password"
               value={loginForm.password}
               placeholder="enter your password"
+              required
               onChange={(e) =>
                 setLoginForm({ ...loginForm, password: e.target.value })
               }
